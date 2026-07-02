@@ -17,8 +17,7 @@
 
                     <div class="w-full overflow-hidden rounded-lg border border-stone-200">
                         <table class="w-full">
-                            <thead
-                                class="border-b border-stone-200 bg-stone-100 text-sm font-medium text-stone-600 ">
+                            <thead class="border-b border-stone-200 bg-stone-100 text-sm font-medium text-stone-600 ">
                                 <tr>
                                     <th class="px-2.5 py-2 text-start font-medium">Amount</th>
                                     <th class="px-2.5 py-2 text-start font-medium">Description</th>
@@ -30,7 +29,19 @@
                             <tbody class="group text-sm text-stone-800 ">
                                 @foreach ($expenses as $expense)
                                     <tr class="border-b border-stone-200 last:border-0">
-                                        <td class="p-3">₹ {{ $expense->amount }}</td>
+                                        <td class="p-3 flex items-start gap-2">
+                                            <div>₹ {{ $expense->amount }}</div>
+                                            <a class="w-6 h-6" href="{{ route('expense.show', $expense) }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    viewBox="0 0 24 20" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="lucide lucide-eye-icon lucide-eye">
+                                                    <path
+                                                        d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+                                                    <circle cx="12" cy="12" r="3" />
+                                                </svg>
+                                            </a>
+                                        </td>
                                         <td class="p-3">
                                             {{ $expense->description ? $expense->description : '-' }}
                                         </td>

@@ -55,7 +55,9 @@ class ExpenseController extends Controller
      */
     public function show(Expense $expense)
     {
-        //
+        $this->authorize('view', $expense);
+
+        return view('expense.show', compact('expense'));
     }
 
     /**

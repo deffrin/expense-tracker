@@ -18,13 +18,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'verified'])->group(function() {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/my-expenses', [ExpenseController::class, 'index'])->name('expense.index');
     Route::get('/add-expense', [ExpenseController::class, 'create'])->name('expense.create');
     Route::post('/store-expense', [ExpenseController::class, 'store'])->name('expense.store');
     Route::get('/edit-expense/{expense}', [ExpenseController::class, 'edit'])->name('expense.edit');
     Route::post('/update-expense/{expense}', [ExpenseController::class, 'update'])->name('expense.update');
-
+    Route::get('expense/{expense}', [ExpenseController::class, 'show'])->name('expense.show');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
