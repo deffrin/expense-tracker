@@ -50,7 +50,7 @@ class ExpenseController extends Controller
             'category_id' => $validated['category'],
         ]);
 
-        return redirect('/my-expenses');
+        return redirect('/my-expenses')->with('success','Created expense successfully!');
     }
 
     /**
@@ -90,7 +90,7 @@ class ExpenseController extends Controller
             'category_id' => $validated['category'],
         ]);
 
-        return redirect('/my-expenses');
+        return redirect('/my-expenses')->with('success','Updated expense successfully!');
     }
 
     /**

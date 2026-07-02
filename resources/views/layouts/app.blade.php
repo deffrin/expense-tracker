@@ -43,8 +43,6 @@
                 icon: 'success',
                 title: 'Success',
                 text: @json(session('success')),
-                timer: 2000,
-                showConfirmButton: false
             });
         </script>
     @endif
