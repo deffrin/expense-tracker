@@ -22,7 +22,8 @@
                                     <th class="px-2.5 py-2 text-start font-medium">Amount</th>
                                     <th class="px-2.5 py-2 text-start font-medium">Description</th>
                                     <th class="px-2.5 py-2 text-start font-medium">Category</th>
-                                    <th class="px-2.5 py-2 text-start font-medium">Date</th>
+                                    <th class="px-2.5 py-2 text-start font-medium">Spent At</th>
+                                    <th class="px-2.5 py-2 text-start font-medium">Last Updated At</th>
                                     <th class="px-2.5 py-2 text-start font-medium">Action</th>
                                 </tr>
                             </thead>
@@ -46,7 +47,8 @@
                                             {{ $expense->description ? $expense->description : '-' }}
                                         </td>
                                         <td class="p-3">{{ $expense->category->name }}</td>
-                                        <td class="p-3">{{ $expense->added_date->format('d/m/Y') }}</td>
+                                        <td class="p-3">{{ $expense->spent_at->format('d/m/Y') }}</td>
+                                        <td class="p-3">{{ $expense->updated_at->format('d/m/Y h:i A') }}</td>
                                         <td class="p-3">
                                             <a href="{{ route('expense.edit', $expense->id) }}"
                                                 class="inline-flex items-center justify-center border align-middle select-none font-sans font-medium text-center duration-300 ease-in disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed focus:shadow-none text-sm py-2 px-4 shadow-sm hover:shadow-md bg-stone-800 hover:bg-stone-700 border-stone-900 text-stone-50 rounded-lg transition antialiased">

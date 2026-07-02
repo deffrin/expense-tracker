@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->decimal('amount', 10, 2);
             $table->text('description')->nullable();
-            $table->timestamp('added_date');
+            $table->timestamp('spent_at');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('user_id');
 

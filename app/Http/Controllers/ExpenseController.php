@@ -42,7 +42,7 @@ class ExpenseController extends Controller
         Expense::create([
             'user_id' =>  Auth::user()->id,
             'amount' => $validated['amount'],
-            'added_date' => $validated['date'],
+            'spent_at' => $validated['date'],
             'description' => $validated['description'] ?? '',
             'category_id' => $validated['category'],
         ]);
@@ -82,7 +82,7 @@ class ExpenseController extends Controller
 
         $expense->update([
             'amount' => $validated['amount'],
-            'added_date' => $validated['date'],
+            'spent_at' => $validated['date'],
             'description' => $validated['description'] ?? '',
             'category_id' => $validated['category'],
         ]);

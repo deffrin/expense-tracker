@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Expense extends Model
 {
-    protected $fillable = ['user_id', 'amount', 'added_date', 'description', 'category_id'];
+    protected $fillable = ['user_id', 'amount', 'spent_at', 'description', 'category_id'];
 
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'added_date' => 'datetime',
+        'spent_at' => 'datetime',
     ];
 
     public function category()

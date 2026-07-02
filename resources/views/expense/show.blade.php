@@ -40,9 +40,9 @@
                 </div>
 
                 <div class="text-md  flex flex-col">
-                    <label class="text-sm">Date</label>
+                    <label class="text-sm">Spent At</label>
                     <div class="text-md">
-                        {{ $expense->added_date->format('d/m/Y') }}
+                        {{ $expense->spent_at->format('d/m/Y') }}
                     </div>
                 </div>
             </div>
