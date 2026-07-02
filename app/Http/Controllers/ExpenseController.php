@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreExpenseRequest;
+use App\Http\Requests\UpdateExpenseRequest;
 use App\Models\Category;
 use App\Models\Expense;
 use Illuminate\Http\Request;
@@ -62,15 +63,29 @@ class ExpenseController extends Controller
      */
     public function edit(Expense $expense)
     {
-        //
+        $this->authorize('update', $expense);
+
+        $categories = Category::all();
+
+        return view('expense.edit', compact('categories', 'expense'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Expense $expense)
+    public function update(UpdateExpenseRequest $request, Expense $expense)
     {
-        //
+        // Retrieve the validated input data...
+        $validated = $request->validated();
+
+        $expense->update([
+            'amount' => $validated['amount'],
+            'added_date' => $validated['date'],
+            'description' => $validated['description'] ?? '',
+            'category_id' => $validated['category'],
+        ]);
+
+        return redirect('/my-expenses');
     }
 
     /**
@@ -78,6 +93,10 @@ class ExpenseController extends Controller
      */
     public function destroy(Expense $expense)
     {
-        //
+        $this->authorize('delete', $expense);
+
+        $expense->delete();
+
+        return redirect('/my-expenses');
     }
 }
