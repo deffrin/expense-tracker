@@ -20,6 +20,9 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/my-expenses', [ExpenseController::class, 'index'])->name('expense.index');
+    Route::get('/add-expense', [ExpenseController::class, 'create'])->name('expense.create');
+    Route::post('/store-expense', [ExpenseController::class, 'store'])->name('expense.store');
+
 });
 
 require __DIR__.'/auth.php';

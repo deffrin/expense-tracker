@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreExpenseRequest;
+use App\Models\Category;
 use App\Models\Expense;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
 {
@@ -12,7 +15,7 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::paginate(20);
+        $expenses = Expense::with('category')->paginate(20);
 
         return view('expense.index', compact('expenses'));
     }
@@ -22,15 +25,28 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        return view('expense.create');
+        $categories = Category::all();
+
+        return view('expense.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreExpenseRequest $request)
     {
-        //
+        // Retrieve the validated input data...
+        $validated = $request->validated();
+
+        Expense::create([
+            'user_id' =>  Auth::user()->id,
+            'amount' => $validated['amount'],
+            'added_date' => $validated['date'],
+            'description' => $validated['description'] ?? '',
+            'category_id' => $validated['category'],
+        ]);
+
+        return redirect('/my-expenses');
     }
 
     /**
