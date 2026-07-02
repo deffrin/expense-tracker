@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/edit-expense/{expense}', [ExpenseController::class, 'edit'])->name('expense.edit');
     Route::post('/update-expense/{expense}', [ExpenseController::class, 'update'])->name('expense.update');
     Route::get('expense/{expense}', [ExpenseController::class, 'show'])->name('expense.show');
+    Route::delete('/expense/{expense}', [ExpenseController::class, 'destroy'])->name('expense.destroy');
 });
 
 require __DIR__ . '/auth.php';

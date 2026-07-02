@@ -102,6 +102,6 @@ class ExpenseController extends Controller
 
         $expense->delete();
 
-        return redirect('/my-expenses');
+        return redirect('/my-expenses')->with('success','Deleted expense successfully!');
     }
 }
