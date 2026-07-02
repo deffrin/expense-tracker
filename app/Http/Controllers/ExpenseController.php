@@ -16,7 +16,10 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::with('category')->paginate(20);
+        $expenses = auth()
+            ->user()
+            ->expenses()
+            ->with('category')->paginate(20);
 
         return view('expense.index', compact('expenses'));
     }
