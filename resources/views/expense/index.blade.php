@@ -30,7 +30,7 @@
                             <tbody class="group text-sm text-stone-800 ">
                                 @foreach ($expenses as $expense)
                                     <tr class="border-b border-stone-200 last:border-0">
-                                        <td class="p-3 flex items-start gap-2">
+                                        <td class="p-3 flex items-center gap-2">
                                             <div>₹ {{ $expense->amount }}</div>
                                             <a class="w-6 h-6" href="{{ route('expense.show', $expense) }}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"

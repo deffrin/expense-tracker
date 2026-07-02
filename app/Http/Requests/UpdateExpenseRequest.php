@@ -24,8 +24,9 @@ class UpdateExpenseRequest extends FormRequest
     {
         return [
             'amount' => ['required', 'decimal:0,2'],
-            'date' => ['required'],
-            'category' => ['required'],
+            'description' => ['nullable', 'string', 'max:500'],
+            'date' => ['required', 'date'],
+            'category' => ['required', 'integer', 'exists:categories,id'],
         ];
     }
 }
