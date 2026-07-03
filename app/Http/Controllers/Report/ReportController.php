@@ -14,45 +14,30 @@ class ReportController extends Controller
     {
         $selectedMonth = $request->input('month') ?? (int) date('m');
         $selectedYear = $request->input('year') ??  date('Y');
+        $selectedCategory = $request->input('category');
 
-        $categories = Category::orderBy('name', 'asc')->get();
+        $allCategories = Category::all();
 
-        $categoryNames = $categories->pluck('name')->toArray();
-
-        // Total Expenses Per Category
-        $monthlyExpensesPerCategory = [];
-
-        $maxMonthlyExpensePerCategory = 0;
-
-        foreach ($categories as $category) {
-            $totalExpenses = auth()->user()->expenses()
-                ->where('category_id', $category->id)
+        $categories = Category::withSum(['expenses as total' => function ($query) use ($selectedMonth, $selectedYear) {
+            $query->where('user_id', auth()->id())
                 ->whereMonth('spent_at', $selectedMonth)
-                ->whereYear('spent_at', $selectedYear)
-                ->sum('amount');
+                ->whereYear('spent_at', $selectedYear);
+        }], 'amount')->orderBy('name', 'asc');
 
-            if ($totalExpenses > $maxMonthlyExpensePerCategory) {
-                $maxMonthlyExpensePerCategory = $totalExpenses;
-            }
-
-            array_push($monthlyExpensesPerCategory, $totalExpenses);
+        if ($selectedCategory) {
+            $categories->where('id', $selectedCategory);
         }
 
-        $categories = Category::withSum(['expenses as total' => function ($query) {
-            $query->where('user_id', auth()->id())
-                ->whereMonth('spent_at', now()->month)
-                ->whereYear('spent_at', now()->year);
-        }], 'amount')->orderBy('name', 'asc')->get();
+        $categories = $categories->get();
 
         return view(
             'report.total-expense-category-wise',
             compact(
-                'categoryNames',
-                'monthlyExpensesPerCategory',
-                'maxMonthlyExpensePerCategory',
+                'allCategories',
                 'categories',
                 'selectedMonth',
-                'selectedYear'
+                'selectedYear',
+                'selectedCategory'
             )
         );
     }
@@ -66,6 +51,7 @@ class ReportController extends Controller
             ->select(
                 DB::raw('DATE(spent_at) as spent_at'),
                 DB::raw('SUM(amount) as total'),
+                DB::raw('COUNT(DATE(spent_at)) as count'),
             )
             ->whereMonth('spent_at', $selectedMonth)
             ->whereYear('spent_at', $selectedYear)
