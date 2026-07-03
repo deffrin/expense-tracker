@@ -30,6 +30,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
          * Total Expenses Per Category
          */
         Route::get('/total-expense-category-wise', [ReportController::class, 'categoryWiseExpense'])->name('categoryWiseExpense');
+
+        /**
+         * Average daily expenses for a specific month
+         */
+        Route::get('/average-daily-expenses', [ReportController::class, 'averageDailyExpenses'])->name('averageDailyExpenses');
     });
 
     Route::get('/my-expenses', [ExpenseController::class, 'index'])->name('expense.index');

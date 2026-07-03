@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800  leading-tight">
-            {{ __('Total Expenses Per Category') }}
+            {{ __('Total expenses per category for the month.') }}
         </h2>
         <div>
             <form class="flex gap-2" action="" method="get">
@@ -35,7 +35,6 @@
                 <div class="w-full p-4 bg-white rounded-lg shadow-sm">
                     <div class="mb-4">
                         <h3 class="text-sm text-stone-500 mb-1">Monthly Report</h3>
-                        <p class="text-base text-stone-800 font-medium">Total Expenses Per Category</p>
                     </div>
                     <div>
                         <canvas id="totalExpensePerCategoryMonthly"></canvas>
