@@ -70,7 +70,7 @@
                 <div role="alert"
                     class="relative flex items-start w-full border rounded-md p-2 bg-transparent border-stone-800 text-stone-800">
                     <div class="w-full text-sm font-sans leading-none m-1.5 flex justify-between items-center">
-                        You haven't added expenses yet.
+                        You haven't added any expenses yet.
                         <a href="/add-expense"
                             class="inline-flex items-center justify-center border align-middle select-none font-sans font-medium text-center duration-300 ease-in disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed focus:shadow-none text-sm py-2 px-4 shadow-sm hover:shadow-md bg-stone-800 hover:bg-stone-700 border-stone-900 text-stone-50 rounded-lg transition antialiased">Add
                             an Expense</a>

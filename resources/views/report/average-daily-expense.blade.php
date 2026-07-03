@@ -38,34 +38,46 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white  overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="w-full p-4 bg-white rounded-lg shadow-sm">
-                    <div class="w-full overflow-hidden rounded-lg border border-stone-200">
-                        <table class="w-full">
-                            <thead class="border-b border-stone-200 bg-stone-100 text-sm font-medium text-stone-600 ">
-                                <tr>
-                                    <th class="px-2.5 py-2 text-start font-medium">Total Expense</th>
-                                    <th class="px-2.5 py-2 text-start font-medium">Spent At</th>
-                                </tr>
-                            </thead>
-                            <tbody class="group text-sm text-stone-800 ">
-                                @foreach ($allExpenses as $expense)
-                                    <tr class="border-b border-stone-200 last:border-0">
-                                        <td class="p-3">
-                                            ₹{{ $expense->total }} ({{ $expense->count }}
-                                            expense{{ $expense->count > 1 ? 's' : '' }})
-                                        </td>
-                                        <td class="p-3 flex items-center gap-2">
-                                            {{ $expense->spent_at->format('l, d M Y') }}
-                                        </td>
+
+            @if ($allExpenses->count())
+                <div class="bg-white  overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="w-full p-4 bg-white rounded-lg shadow-sm">
+                        <div class="w-full overflow-hidden rounded-lg border border-stone-200">
+                            <table class="w-full">
+                                <thead
+                                    class="border-b border-stone-200 bg-stone-100 text-sm font-medium text-stone-600 ">
+                                    <tr>
+                                        <th class="px-2.5 py-2 text-start font-medium">Total Expense</th>
+                                        <th class="px-2.5 py-2 text-start font-medium">Spent At</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody class="group text-sm text-stone-800 ">
+                                    @foreach ($allExpenses as $expense)
+                                        <tr class="border-b border-stone-200 last:border-0">
+                                            <td class="p-3">
+                                                ₹{{ $expense->total }} ({{ $expense->count }}
+                                                expense{{ $expense->count > 1 ? 's' : '' }})
+                                            </td>
+                                            <td class="p-3 flex items-center gap-2">
+                                                {{ $expense->spent_at->format('l, d M Y') }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @else
+                <div role="alert"
+                    class="relative flex items-start w-full border rounded-md p-2 bg-transparent border-stone-800 text-stone-800">
+                    <div class="w-full text-sm font-sans leading-none m-1.5 flex justify-between items-center">
+                        You don't have any expenses for this month.
+                    </div>
+                </div>
+            @endif
+
         </div>
     </div>
 
