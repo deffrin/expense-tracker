@@ -1,16 +1,16 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Report\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -19,6 +19,19 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+    /**
+     * Reports
+     */
+    Route::prefix('reports/')->group(function () {
+
+        /**
+         * Total Expenses Per Category
+         */
+        Route::get('/total-expense-category-wise', [ReportController::class, 'categoryWiseExpense'])->name('categoryWiseExpense');
+    });
+
     Route::get('/my-expenses', [ExpenseController::class, 'index'])->name('expense.index');
     Route::get('/add-expense', [ExpenseController::class, 'create'])->name('expense.create');
     Route::post('/store-expense', [ExpenseController::class, 'store'])->name('expense.store');
