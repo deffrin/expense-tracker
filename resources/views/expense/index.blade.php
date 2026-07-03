@@ -28,6 +28,9 @@
                                 </tr>
                             </thead>
                             <tbody class="group text-sm text-stone-800 ">
+                                @php
+                                    $timezone = session('timezone', 'UTC');
+                                @endphp
                                 @foreach ($expenses as $expense)
                                     <tr class="border-b border-stone-200 last:border-0">
                                         <td class="p-3 flex items-center gap-2">
@@ -47,17 +50,22 @@
                                             {{ $expense->description ? $expense->description : '-' }}
                                         </td>
                                         <td class="p-3">{{ $expense->category->name }}</td>
-                                        <td class="p-3">{{ $expense->spent_at->format('d/m/Y') }}</td>
-                                        <td class="p-3">{{ $expense->updated_at->format('d/m/Y h:i A') }}</td>
+                                        <td class="p-3">
+                                            {{ $expense->spent_at->timezone($timezone)->format('d/m/Y') }}</td>
+                                        <td class="p-3">
+                                            {{ $expense->updated_at->timezone($timezone)->format('d/m/Y h:i A') }}</td>
                                         <td class="p-3 flex">
                                             <a href="{{ route('expense.edit', $expense->id) }}"
                                                 class="inline-flex items-center justify-center border align-middle select-none font-sans font-medium text-center duration-300 ease-in disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed focus:shadow-none text-sm py-2 px-4 shadow-sm hover:shadow-md bg-stone-800 hover:bg-stone-700 border-stone-900 text-stone-50 rounded-lg transition antialiased mr-2">
                                                 Edit Expense
                                             </a>
-                                            <form class="delete-form" action="{{ route('expense.destroy', $expense) }}" method="post">
+                                            <form class="delete-form" action="{{ route('expense.destroy', $expense) }}"
+                                                method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                  <button type="submit" class="inline-flex items-center justify-center border align-middle select-none font-sans font-medium text-center duration-300 ease-in disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed focus:shadow-none text-sm py-2 px-4 shadow-sm hover:shadow-md bg-red-500 hover:bg-error-light relative bg-gradient-to-b from-red-500 to-red-600 border-red-600 text-stone-50 rounded-lg hover:bg-gradient-to-b hover:from-red-600 hover:to-red-600 hover:border-red-600 after:absolute after:inset-0 after:rounded-[inherit] after:box-shadow after:shadow-[inset_0_1px_0px_rgba(255,255,255,0.35),inset_0_-2px_0px_rgba(0,0,0,0.18)] after:pointer-events-none transition antialiased">Delete Expense</button>
+                                                <button type="submit"
+                                                    class="inline-flex items-center justify-center border align-middle select-none font-sans font-medium text-center duration-300 ease-in disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed focus:shadow-none text-sm py-2 px-4 shadow-sm hover:shadow-md bg-red-500 hover:bg-error-light relative bg-gradient-to-b from-red-500 to-red-600 border-red-600 text-stone-50 rounded-lg hover:bg-gradient-to-b hover:from-red-600 hover:to-red-600 hover:border-red-600 after:absolute after:inset-0 after:rounded-[inherit] after:box-shadow after:shadow-[inset_0_1px_0px_rgba(255,255,255,0.35),inset_0_-2px_0px_rgba(0,0,0,0.18)] after:pointer-events-none transition antialiased">Delete
+                                                    Expense</button>
                                             </form>
                                         </td>
                                     </tr>

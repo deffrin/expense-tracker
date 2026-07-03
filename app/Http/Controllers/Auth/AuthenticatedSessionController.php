@@ -28,6 +28,16 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $ip = request()->ip();
+
+        $response = file_get_contents("https://ipinfo.io/{$ip}/json");
+
+        $data = json_decode($response, true);
+
+        $timezone = $data['timezone'] ?? 'Asia/Kolkata';
+
+        session(['timezone' => in_array($timezone, timezone_identifiers_list()) ? $timezone : 'UTC']);
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
